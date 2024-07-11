@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+    <div id="root"></div>
+
+<script type="text/babel">
+    const container = document.getElementById('root');
+    const root = ReactDOM.createRoot(container);
+
+    //membuat komponen
+    function Header ({name}){ //masuk ke propsnya pakai props refactor destrucuring
+        return (<h1> React XIXI {name ? name : "pat"}</h1>) //props refactor pakai ternary operator
+    }
+    //komponen bersarang (nyimpan komponen dalam komponen lain)
+    function HomePage(){
+        const students = ['patge', 'cia', 'pat']
+        // ini hooks
+        const [Likes, setLikes] = React.useState(0)
+        const [Add, setAdd] = React.useState(0)
+        const [Min, setMin] = React.useState(0)
+
+        function handleClick(){
+            setAdd(Add + 1), //data yg berubah seiring waktu itu state
+            setMin(Min - 1)
+        }
+
+        return (
+            // props yg ditangkap sbg  object 
+            <div>
+            <Header name = "Patricia" />
+            <ul>
+            {
+                students.map((e) => (
+                    <li key = {e}> {e} </li> //agar si props tau ada unique key dalam tiap elemem
+                ))
+            }
+            </ul>
+
+
+            <button onClick = {handleClick}> + </button>
+            ({Add})
+            <button onClick = {handleClick}> - </button>
+            ({Min})
+            </div>
+        )
+    }
+    //ketika dirender, tinggal panggil komponne gedenya aj
+    root.render(<HomePage/>);        
+</script>
+</body>
+
+
+</html>
